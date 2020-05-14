@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+{% block content %}
+{% if user.is_authenticated %}
+
+<h1> welcome {{ user.username }} </h1>
+<a href="http://localhost:8000/todos/add">add task</a>
+<a href="http://localhost:8000/todos/profile">profile</a>
+<a href="{% url 'logout' %}">logout</a>
+
+{% else %}
+
+<h1>You need to login</h1>
+<a href="{% url 'login' %}">login</a>
+
+{% endif %}
+
+<ul>
+    {% for todo in todos %}
+    <li>
+        <a href="http://lockalhost:8000/todos/details/{{ todo.id }}">{{ todo.title }}</a>
+    </li>
+    <p>{{ todo.text }}</p>
+    {% empty %}
+    <p>you have nothing to do.</p>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+
